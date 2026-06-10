@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shopping Vocabulary & Grammar</title>
+<style>
+  :root{
+    --bg:#fff8e8;
+    --paper:#ffffff;
+    --ink:#263238;
+    --muted:#607d8b;
+    --teal:#00a6b4;
+    --teal2:#d9f5f7;
+    --orange:#ffb347;
+    --orange2:#fff0cc;
+    --pink:#ff7aa2;
+    --green:#5bc47a;
+    --red:#ef5350;
+    --purple:#8e7dff;
+    --yellow:#ffd54f;
+    --shadow:0 8px 22px rgba(40,40,40,.13);
+    --radius:22px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 10% 10%, #fff0b6 0 110px, transparent 111px),
+      radial-gradient(circle at 90% 15%, #d7f5ff 0 135px, transparent 136px),
+      radial-gradient(circle at 20% 85%, #ffe1ed 0 145px, transparent 146px),
+      linear-gradient(135deg, #fff8e8 0%, #eafcff 100%);
+    min-height:100vh;
+  }
+  header{
+    max-width:1120px;
+    margin:0 auto;
+    padding:28px 18px 18px;
+  }
+  .hero{
+    display:grid;
+    grid-template-columns:1.4fr .8fr;
+    gap:18px;
+    align-items:center;
+    background:linear-gradient(135deg, var(--teal) 0%, #84dbe2 52%, #fff 53%, #fff4d1 100%);
+    border-radius:30px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    position:relative;
+  }
+  .hero-text{padding:28px}
+  h1{
+    margin:0;
+    font-size:clamp(30px, 5vw, 56px);
+    line-height:1;
+    color:white;
+    text-shadow:0 3px 0 rgba(0,0,0,.1);
+  }
+  .subtitle{
+    margin:14px 0 0;
+    font-size:clamp(16px, 2.3vw, 22px);
+    font-weight:700;
+    color:#073b40;
+    background:rgba(255,255,255,.78);
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:18px;
+  }
+  .hero-art{
+    min-height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .big-emoji{
+    width:190px;height:190px;border-radius:50%;
+    background:linear-gradient(145deg,#fff,#f4fcff);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 0 8px #fff, var(--shadow);
+    font-size:92px;
+    transform:rotate(-7deg);
+  }
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(8px);
+    background:rgba(255,248,232,.84);
+    border-bottom:1px solid rgba(0,0,0,.07);
+  }
+  .topbar-inner{
+    max-width:1120px;margin:0 auto;padding:10px 18px;
+    display:flex;gap:10px;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;
+  }
+  .progress-wrap{
+    flex:1 1 320px;
+    height:16px;background:#fff;border-radius:999px;overflow:hidden;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.06);
+  }
+  .progress{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--green),var(--teal),var(--purple));
+    transition:.3s;
+  }
+  .score-pill{
+    font-weight:800;
+    background:#fff;
+    padding:8px 12px;border-radius:999px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  main{max-width:1120px;margin:0 auto;padding:18px}
+  section{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px;
+    margin:20px 0;
+    border:3px solid rgba(255,255,255,.75);
+  }
+  h2{
+    margin:0 0 12px;
+    font-size:clamp(24px,3vw,34px);
+    color:#0a7e8a;
+  }
+  .section-note{
+    margin:0 0 18px;
+    color:var(--muted);
+    font-weight:700;
+  }
+  .tabs{
+    display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px;
+  }
+  .tab, button{
+    border:0;
+    border-radius:16px;
+    padding:11px 15px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    background:#eceff1;
+    color:#263238;
+    transition:.15s transform,.15s box-shadow,.15s background;
+    box-shadow:0 4px 0 rgba(0,0,0,.12);
+  }
+  .tab.active{background:var(--orange);color:#3e2723}
+  button:hover,.tab:hover{transform:translateY(-1px)}
+  button:active,.tab:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.12)}
+  .reset{background:#fff;border:2px solid #ffb347}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:14px;
+  }
+  .card{
+    background:linear-gradient(145deg,#ffffff,#f7fbff);
+    border-radius:20px;
+    padding:15px;
+    border:2px solid #e7eef2;
+    min-height:148px;
+    display:flex;flex-direction:column;gap:10px;
+    justify-content:space-between;
+  }
+  .card .icon{
+    font-size:45px;line-height:1;
+    background:#fff6cf;
+    width:74px;height:74px;border-radius:22px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 0 3px #fff;
+  }
+  .word{
+    font-size:20px;font-weight:900;
+  }
+  .ru{
+    color:#546e7a;font-weight:800;
+  }
+  .audio-btn{
+    background:var(--teal2);
+    box-shadow:none;
+    padding:8px 10px;
+    font-size:14px;
+  }
+  .activity{
+    border:2px dashed #cfd8dc;
+    border-radius:20px;
+    padding:16px;
+    margin:16px 0;
+    background:#fbfdff;
+  }
+  .activity-title{
+    font-size:21px;
+    font-weight:900;
+    margin:0 0 6px;
+    color:#3949ab;
+  }
+  .question-card{
+    background:white;
+    border-radius:18px;
+    padding:15px;
+    margin:12px 0;
+    border:2px solid #edf2f4;
+  }
+  .prompt{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+  .prompt-icon{
+    width:60px;height:60px;border-radius:18px;
+    display:flex;align-items:center;justify-content:center;
+    background:#fff3c4;
+    font-size:34px;
+    flex:0 0 auto;
+  }
+  .prompt-text{
+    font-size:20px;
+    font-weight:900;
+  }
+  .choices{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+  }
+  .choice{
+    background:#f1f8e9;
+    border:2px solid #d7e8c8;
+    box-shadow:0 4px 0 rgba(85,120,50,.15);
+    text-align:left;
+  }
+  .choice.correct{
+    background:#c8f7d3;
+    border-color:#3bbb61;
+  }
+  .choice.wrong{
+    background:#ffd6d6;
+    border-color:#e64646;
+  }
+  .feedback{
+    min-height:24px;
+    font-weight:900;
+    margin-top:9px;
+  }
+  .feedback.ok{color:#1b8a3a}
+  .feedback.no{color:#c62828}
+  .badge{
+    display:inline-block;
+    background:#fff3c4;
+    padding:4px 10px;
+    border-radius:999px;
+    font-weight:900;
+    color:#5d4037;
+  }
+  .grammar-box{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:14px;
+  }
+  .rule{
+    border-radius:20px;
+    background:linear-gradient(145deg,#fff7df,#fff);
+    border:2px solid #ffd180;
+    padding:15px;
+  }
+  .rule h3{margin:0 0 8px;color:#ef6c00;font-size:21px}
+  .formula{
+    display:inline-block;
+    background:#ffe0b2;
+    font-weight:900;
+    padding:7px 10px;
+    border-radius:12px;
+    margin-bottom:7px;
+  }
+  .example{
+    font-size:17px;margin:6px 0;
+  }
+  .hot{color:#ff5b00;font-weight:900}
+  .mini-market{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
+    gap:14px;
+    margin:16px 0;
+  }
+  .market-item{
+    background:#fff;
+    border:2px solid #e6e6e6;
+    border-radius:22px;
+    padding:13px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 5px 0 rgba(0,0,0,.08);
+    transition:.15s transform;
+    min-height:135px;
+  }
+  .market-item:hover{transform:translateY(-2px)}
+  .market-item.selected{outline:4px solid var(--orange)}
+  .market-item.done{background:#e8f5e9;border-color:#66bb6a}
+  .market-icon{font-size:48px}
+  .market-word{font-weight:900;margin-top:8px}
+  .checkout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .receipt{
+    background:#f7f7f7;
+    border:2px solid #d7d7d7;
+    border-radius:18px;
+    padding:16px;
+    font-family:"Courier New", monospace;
+  }
+  .receipt h3{text-align:center;margin:0 0 12px;font-family:inherit}
+  .receipt-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed #bbb}
+  .basket-panel{
+    background:#fffaf0;
+    border:2px solid #ffd180;
+    border-radius:18px;
+    padding:16px;
+  }
+  .basket-list{min-height:95px}
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin:5px;
+    padding:8px 10px;
+    border-radius:999px;
+    background:#e1f5fe;
+    font-weight:900;
+  }
+  .dialogue{
+    background:#f3e5f5;
+    border-radius:20px;
+    padding:16px;
+    border:2px solid #ce93d8;
+  }
+  .speech{
+    display:block;
+    max-width:760px;
+    background:white;
+    padding:12px 15px;
+    border-radius:18px;
+    margin:10px 0;
+    font-weight:800;
+    box-shadow:0 3px 0 rgba(0,0,0,.08);
+  }
+  .speech.cashier{margin-left:auto;background:#fffde7}
+  .bank{
+    display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;
+  }
+  .word-chip{
+    background:#e8eaf6;border:2px solid #c5cae9;
+    box-shadow:0 3px 0 rgba(63,81,181,.13);
+    padding:9px 11px;
+  }
+  .word-chip.used{opacity:.35;pointer-events:none}
+  .sentence-build{
+    min-height:54px;
+    border:2px dashed #b0bec5;
+    border-radius:16px;
+    padding:8px;
+    background:white;
+    margin-bottom:10px;
+  }
+  .built-word{
+    display:inline-block;
+    margin:4px;
+    padding:8px 10px;
+    background:#dcedc8;
+    border-radius:12px;
+    font-weight:900;
+  }
+  .completion{
+    position:fixed;
+    inset:auto 18px 18px auto;
+    background:linear-gradient(135deg,#fff,#fff6d7);
+    border:3px solid var(--yellow);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    padding:14px 16px;
+    max-width:320px;
+    display:none;
+    z-index:80;
+  }
+  .completion.show{display:block}
+  .footer-space{height:30px}
+  .confetti{
+    position:fixed;
+    width:10px;height:10px;border-radius:2px;
+    top:-20px;
+    animation:fall 1.4s linear forwards;
+    z-index:100;
+  }
+  @keyframes fall{
+    to{transform:translateY(110vh) rotate(720deg);opacity:.2}
+  }
+  .small{font-size:14px;color:#607d8b;font-weight:800}
+  @media(max-width:740px){
+    .hero{grid-template-columns:1fr}
+    .hero-art{min-height:150px}
+    .big-emoji{width:125px;height:125px;font-size:62px}
+    .checkout{grid-template-columns:1fr}
+    section{padding:16px}
+    .choices{grid-template-columns:1fr}
+    .prompt-text{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Shopping Quest</h1>
+      <div class="subtitle">Vocabulary, phrases and grammar practice</div>
+    </div>
+    <div class="hero-art">
+      <div class="big-emoji" aria-hidden="true">🛒</div>
+    </div>
+  </div>
+</header>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="score-pill">Score: <span id="score">0</span>/<span id="total">0</span></div>
+    <div class="progress-wrap" aria-label="progress"><div class="progress" id="progress"></div></div>
+    <button class="reset" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+
+<main>
+<section id="learn">
+  <h2>1. Learn the shopping words</h2>
+  <p class="section-note">Click the sound buttons and look at the Russian translations before doing the quests.</p>
+  <div class="tabs">
+    <button class="tab active" onclick="showCards('nouns', this)">Nouns</button>
+    <button class="tab" onclick="showCards('phrases', this)">Phrases</button>
+    <button class="tab" onclick="showCards('grammar', this)">Grammar words</button>
+  </div>
+  <div class="grid" id="cardsGrid"></div>
+</section>
+
+<section id="translate">
+  <h2>2. Translation quest</h2>
+  <p class="section-note">Choose the Russian meaning. No typing, because civilisation has suffered enough from spelling mistakes.</p>
+  <div class="activity" id="translationActivity"></div>
+</section>
+
+<section id="picture">
+  <h2>3. Picture shopping quiz</h2>
+  <p class="section-note">Choose the correct word or phrase for each shopping action.</p>
+  <div class="activity" id="pictureActivity"></div>
+</section>
+
+<section id="definitions">
+  <h2>4. What is it?</h2>
+  <p class="section-note">Read the meaning and choose the correct English word.</p>
+  <div class="activity" id="definitionActivity"></div>
+</section>
+
+<section id="grammar">
+  <h2>5. Grammar: too, enough, as ... as</h2>
+  <div class="grammar-box">
+    <div class="rule">
+      <h3>too + adjective</h3>
+      <div class="formula">too + adjective</div>
+      <p class="example">This bag is <span class="hot">too heavy</span>.</p>
+      <p class="small">Meaning: it is more than we want or need.</p>
+    </div>
+    <div class="rule">
+      <h3>not + adjective + enough</h3>
+      <div class="formula">not + adjective + enough</div>
+      <p class="example">This shop <span class="hot">isn’t cheap enough</span>.</p>
+      <p class="small">Meaning: it is less than we want or need.</p>
+    </div>
+    <div class="rule">
+      <h3>(not) as + adjective + as</h3>
+      <div class="formula">(not) as + adjective + as</div>
+      <p class="example">This trolley is <span class="hot">as big as</span> that trolley.</p>
+      <p class="example">This basket <span class="hot">isn’t as heavy as</span> that bag.</p>
+    </div>
+  </div>
+  <div class="activity" id="grammarActivity"></div>
+</section>
+
+<section id="wordorder">
+  <h2>6. Click the words in the correct order</h2>
+  <p class="section-note">Build the sentence by clicking the word cards. No keyboard needed.</p>
+  <div class="activity" id="wordOrderActivity"></div>
+</section>
+
+<section id="market">
+  <h2>7. Mini-market game</h2>
+  <p class="section-note">Choose three items, then answer the checkout questions.</p>
+  <div class="mini-market" id="marketItems"></div>
+  <div class="checkout">
+    <div class="basket-panel">
+      <h3>Your shopping bag 🛍️</h3>
+      <div class="basket-list" id="basketList"></div>
+      <button onclick="clearBasket()">Empty the bag</button>
+    </div>
+    <div class="receipt">
+      <h3>RECEIPT</h3>
+      <div id="receiptRows"></div>
+      <div class="receipt-row"><strong>Total</strong><strong id="totalPrice">£0.00</strong></div>
+    </div>
+  </div>
+  <div class="activity" id="marketActivity"></div>
+</section>
+
+<section id="dialogue">
+  <h2>8. Checkout dialogue</h2>
+  <p class="section-note">Choose the best reply in the shop.</p>
+  <div class="dialogue" id="dialogueActivity"></div>
+</section>
+
+<section id="final">
+  <h2>9. Final mixed challenge</h2>
+  <p class="section-note">Vocabulary, phrases and grammar together.</p>
+  <div class="activity" id="finalActivity"></div>
+</section>
+
+<div class="footer-space"></div>
+</main>
+
+<div class="completion" id="completion">
+  <strong>Lesson complete!</strong>
+  <div id="completionText"></div>
+</div>
+
+<script>
+const DATA = {
+  nouns: [
+    {en:"cashier", ru:"кассир", icon:"👩‍💼"},
+    {en:"shopping bag", ru:"пакет для покупок", icon:"🛍️"},
+    {en:"shopping basket", ru:"корзина для покупок", icon:"🧺"},
+    {en:"shopping list", ru:"список покупок", icon:"📝"},
+    {en:"shopping trolley", ru:"тележка для покупок", icon:"🛒"},
+    {en:"special offer", ru:"специальное предложение / скидка", icon:"🏷️"}
+  ],
+  phrases: [
+    {en:"carry the shopping", ru:"нести покупки", icon:"💪"},
+    {en:"check the price", ru:"проверить цену", icon:"🔎"},
+    {en:"get a receipt", ru:"получить чек", icon:"🧾"},
+    {en:"get your change", ru:"получить сдачу", icon:"💰"},
+    {en:"pay by card", ru:"платить картой", icon:"💳"},
+    {en:"pay for the shopping", ru:"оплатить покупки", icon:"🛒"},
+    {en:"pay in cash", ru:"платить наличными", icon:"💵"},
+    {en:"stand in a queue", ru:"стоять в очереди", icon:"🧍‍♂️🧍‍♀️"}
+  ],
+  grammar: [
+    {en:"too big", ru:"слишком большой", icon:"📦"},
+    {en:"too small", ru:"слишком маленький", icon:"🍬"},
+    {en:"not clean enough", ru:"недостаточно чистый", icon:"🧼"},
+    {en:"not old enough", ru:"недостаточно взрослый / недостаточно старый", icon:"🎬"},
+    {en:"as expensive as", ru:"такой же дорогой, как", icon:"💎"},
+    {en:"not as cheap as", ru:"не такой дешёвый, как", icon:"🏷️"}
+  ]
+};
+
+let score = 0;
+let answered = new Set();
+let totalQuestions = 0;
+let currentCards = "nouns";
+let basket = [];
+
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-GB";
+  u.rate = 0.85;
+  speechSynthesis.speak(u);
+}
+
+function shuffle(arr){
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function showCards(type, btn){
+  currentCards = type;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  const grid = document.getElementById("cardsGrid");
+  grid.innerHTML = "";
+  DATA[type].forEach(item=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="icon">${item.icon}</div>
+      <div>
+        <div class="word">${item.en}</div>
+        <div class="ru">${item.ru}</div>
+      </div>
+      <button class="audio-btn" onclick="speak('${safeJS(item.en)}')">🔊 Listen</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function safeJS(s){
+  return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
+function addScore(id, correct, feedbackEl, okText="Correct!", noText="Try another option."){
+  if(correct && !answered.has(id)){
+    answered.add(id);
+    score++;
+    updateScore();
+    feedbackEl.textContent = okText;
+    feedbackEl.className = "feedback ok";
+    burst();
+  } else if(correct) {
+    feedbackEl.textContent = okText;
+    feedbackEl.className = "feedback ok";
+  } else {
+    feedbackEl.textContent = noText;
+    feedbackEl.className = "feedback no";
+  }
+}
+
+function lockChoices(container, correctValue){
+  [...container.querySelectorAll(".choice")].forEach(btn=>{
+    if(btn.dataset.answer === correctValue) btn.classList.add("correct");
+    btn.disabled = true;
+  });
+}
+
+function makeChoiceQuestion(parent, q){
+  const id = q.id;
+  const div = document.createElement("div");
+  div.className = "question-card";
+  const choices = shuffle(q.choices);
+  div.innerHTML = `
+    <div class="prompt">
+      <div class="prompt-icon">${q.icon || "🛒"}</div>
+      <div class="prompt-text">${q.prompt}</div>
+      ${q.audio ? `<button class="audio-btn" onclick="speak('${safeJS(q.audio)}')">🔊</button>` : ""}
+    </div>
+    <div class="choices"></div>
+    <div class="feedback"></div>
+  `;
+  const choicesEl = div.querySelector(".choices");
+  const feedback = div.querySelector(".feedback");
+  choices.forEach(ch=>{
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.dataset.answer = ch;
+    b.textContent = ch;
+    b.onclick = ()=>{
+      const correct = ch === q.answer;
+      if(correct){
+        b.classList.add("correct");
+        lockChoices(choicesEl, q.answer);
+      } else {
+        b.classList.add("wrong");
+      }
+      addScore(id, correct, feedback, q.ok || "Correct!", q.no || "Not this one.");
+    };
+    choicesEl.appendChild(b);
+  });
+  parent.appendChild(div);
+  totalQuestions++;
+}
+
+function buildTranslation(){
+  const parent = document.getElementById("translationActivity");
+  parent.innerHTML = `<p class="activity-title">English → Russian</p>`;
+  const items = [
+    ...DATA.nouns.slice(0,6),
+    ...DATA.phrases.slice(0,8)
+  ];
+  items.forEach((item, idx)=>{
+    const wrongs = shuffle(items.filter(x=>x.ru!==item.ru)).slice(0,3).map(x=>x.ru);
+    makeChoiceQuestion(parent, {
+      id:"tr"+idx,
+      icon:item.icon,
+      prompt:`${item.en}`,
+      audio:item.en,
+      answer:item.ru,
+      choices:[item.ru, ...wrongs],
+      ok:"Correct meaning."
+    });
+  });
+
+  const parent2 = document.createElement("div");
+  parent2.className = "activity";
+  parent2.innerHTML = `<p class="activity-title">Russian → English</p>`;
+  document.getElementById("translate").appendChild(parent2);
+  shuffle(items).slice(0,10).forEach((item, idx)=>{
+    const wrongs = shuffle(items.filter(x=>x.en!==item.en)).slice(0,3).map(x=>x.en);
+    makeChoiceQuestion(parent2, {
+      id:"rte"+idx,
+      icon:item.icon,
+      prompt:`${item.ru}`,
+      answer:item.en,
+      choices:[item.en, ...wrongs],
+      ok:"Correct English phrase."
+    });
+  });
+}
+
+function buildPictures(){
+  const parent = document.getElementById("pictureActivity");
+  parent.innerHTML = `<p class="activity-title">Choose the phrase</p>`;
+  const qs = [
+    {icon:"💵", prompt:"He pays with banknotes.", answer:"pay in cash", choices:["pay in cash","pay by card","get a receipt","check the price"], audio:"pay in cash"},
+    {icon:"💰", prompt:"The cashier gives money back.", answer:"get your change", choices:["get your change","stand in a queue","carry the shopping","pay for the shopping"], audio:"get your change"},
+    {icon:"🧾", prompt:"The machine prints it after payment.", answer:"get a receipt", choices:["get a receipt","shopping list","special offer","cashier"], audio:"get a receipt"},
+    {icon:"🔎", prompt:"You look to see how much it costs.", answer:"check the price", choices:["check the price","pay by card","carry the shopping","get your change"], audio:"check the price"},
+    {icon:"💳", prompt:"You use a bank card.", answer:"pay by card", choices:["pay by card","pay in cash","stand in a queue","get a receipt"], audio:"pay by card"},
+    {icon:"🛍️", prompt:"You take the food home.", answer:"carry the shopping", choices:["carry the shopping","check the price","pay for the shopping","shopping trolley"], audio:"carry the shopping"}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"pic"+i, ok:"Good choice."}));
+}
+
+function buildDefinitions(){
+  const parent = document.getElementById("definitionActivity");
+  parent.innerHTML = `<p class="activity-title">Definitions</p>`;
+  const qs = [
+    {icon:"🛍️", prompt:"You use it to carry your shopping home.", answer:"shopping bag", choices:["shopping bag","cashier","shopping trolley","special offer"]},
+    {icon:"👩‍💼", prompt:"This person takes your money and gives you change.", answer:"cashier", choices:["cashier","shopping list","shopping basket","receipt"]},
+    {icon:"📝", prompt:"You write this to remember the things you want to buy.", answer:"shopping list", choices:["shopping list","shopping trolley","shopping bag","change"]},
+    {icon:"🛒", prompt:"It is big, has four wheels, and you push it around the supermarket.", answer:"shopping trolley", choices:["shopping trolley","shopping basket","cashier","receipt"]},
+    {icon:"🧺", prompt:"You put things in this at the supermarket. You carry it, but you do not take it home.", answer:"shopping basket", choices:["shopping basket","shopping bag","shopping list","special offer"]},
+    {icon:"🏷️", prompt:"Something is cheaper than it usually is.", answer:"special offer", choices:["special offer","cashier","shopping trolley","receipt"]}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"def"+i, ok:"Exactly."}));
+}
+
+function buildGrammar(){
+  const parent = document.getElementById("grammarActivity");
+  parent.innerHTML = `<p class="activity-title">Choose the best sentence</p>`;
+  const qs = [
+    {icon:"👕", prompt:"Dad’s T-shirt is very large. I can’t wear it.", answer:"It’s too big.", choices:["It’s too big.","It isn’t big enough.","It’s as big as mine.","It isn’t as big as mine."]},
+    {icon:"🧴", prompt:"I have little money. This shampoo costs a lot.", answer:"This shampoo is too expensive for me.", choices:["This shampoo is too expensive for me.","This shampoo isn’t expensive enough.","This shampoo is as clean as mine.","This shampoo isn’t as small as mine."]},
+    {icon:"👓", prompt:"These glasses are dirty. You need to wash them again.", answer:"These glasses aren’t clean enough.", choices:["These glasses aren’t clean enough.","These glasses are too clean.","These glasses are as expensive as mine.","These glasses aren’t as old as mine."]},
+    {icon:"🎬", prompt:"Tina is twelve. The film is for 15-year-olds.", answer:"Tina isn’t old enough to see this film.", choices:["Tina isn’t old enough to see this film.","Tina is too old to see this film.","Tina is as old as the film.","Tina isn’t as expensive as the ticket."]},
+    {icon:"🍕", prompt:"There are six pieces and twenty people.", answer:"This pizza is too small.", choices:["This pizza is too small.","This pizza isn’t small enough.","This pizza is as clean as the table.","This pizza isn’t too expensive."]},
+    {icon:"👞", prompt:"The black shoes and brown shoes are equally nice.", answer:"These black shoes are as nice as those brown shoes.", choices:["These black shoes are as nice as those brown shoes.","These black shoes are too nice those brown shoes.","These black shoes aren’t enough nice.","These black shoes are nice enough as those brown shoes."]},
+    {icon:"🍎", prompt:"The apples cost more than the oranges.", answer:"The apples aren’t as cheap as the oranges.", choices:["The apples aren’t as cheap as the oranges.","The apples are as lemon shampoo.","The apples are too cheap enough.","The apples aren’t cheap as enough."]},
+    {icon:"🍯", prompt:"Honey shampoo and lemon shampoo have the same price.", answer:"Honey shampoo is as cheap as lemon shampoo.", choices:["Honey shampoo is as cheap as lemon shampoo.","Honey shampoo isn’t as cheap enough.","Honey shampoo is too cheap as lemon shampoo.","Honey shampoo is cheap enough as lemon shampoo."]},
+    {icon:"🎒", prompt:"My bag is heavier than your school bag.", answer:"Your school bag isn’t as heavy as my bag.", choices:["Your school bag isn’t as heavy as my bag.","Your school bag is too heavy as my bag.","Your school bag isn’t heavy enough as my bag.","Your school bag is as expensive enough."]}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"gr"+i, ok:"Correct grammar."}));
+}
+
+function buildWordOrder(){
+  const parent = document.getElementById("wordOrderActivity");
+  parent.innerHTML = `<p class="activity-title">Word order</p>`;
+  const tasks = [
+    {id:"wo1", target:["This","shampoo","is","too","expensive","for","me."], prompt:"Build: Этот шампунь слишком дорогой для меня."},
+    {id:"wo2", target:["These","oranges","are","sweet","enough","for","me."], prompt:"Build: Эти апельсины достаточно сладкие для меня."},
+    {id:"wo3", target:["This","book","isn’t","interesting","enough","for","me."], prompt:"Build: Эта книга недостаточно интересная для меня."},
+    {id:"wo4", target:["The","shopping","bags","aren’t","too","heavy","for","her."], prompt:"Build: Пакеты не слишком тяжёлые для неё."},
+    {id:"wo5", target:["Please","stand","in","a","queue."], prompt:"Build: Пожалуйста, стойте в очереди."},
+    {id:"wo6", target:["Can","I","pay","by","card?"], prompt:"Build: Можно оплатить картой?"}
+  ];
+  tasks.forEach(task=>{
+    totalQuestions++;
+    const div = document.createElement("div");
+    div.className = "question-card";
+    const shuffled = shuffle(task.target);
+    div.innerHTML = `
+      <div class="prompt">
+        <div class="prompt-icon">🧩</div>
+        <div class="prompt-text">${task.prompt}</div>
+      </div>
+      <div class="sentence-build" data-built=""></div>
+      <div class="bank"></div>
+      <button class="reset" type="button">Clear</button>
+      <button type="button">Check</button>
+      <div class="feedback"></div>
+    `;
+    const build = div.querySelector(".sentence-build");
+    const bank = div.querySelector(".bank");
+    const feedback = div.querySelector(".feedback");
+    const clearBtn = div.querySelectorAll("button")[0];
+    const checkBtn = div.querySelectorAll("button")[1];
+    shuffled.forEach(w=>{
+      const chip = document.createElement("button");
+      chip.className = "word-chip";
+      chip.textContent = w;
+      chip.onclick=()=>{
+        chip.classList.add("used");
+        const bw = document.createElement("span");
+        bw.className = "built-word";
+        bw.textContent = w;
+        build.appendChild(bw);
+        const current = JSON.parse(build.dataset.built || "[]");
+        current.push(w);
+        build.dataset.built = JSON.stringify(current);
+      };
+      bank.appendChild(chip);
+    });
+    clearBtn.onclick=()=>{
+      build.innerHTML = "";
+      build.dataset.built = "[]";
+      [...bank.querySelectorAll(".word-chip")].forEach(c=>c.classList.remove("used"));
+      feedback.textContent = "";
+      feedback.className = "feedback";
+    };
+    checkBtn.onclick=()=>{
+      const built = JSON.parse(build.dataset.built || "[]");
+      const ok = built.join(" ") === task.target.join(" ");
+      addScore(task.id, ok, feedback, "Correct sentence.", "Not yet. Clear and try again.");
+      if(ok){
+        checkBtn.disabled = true;
+        clearBtn.disabled = true;
+        [...bank.querySelectorAll(".word-chip")].forEach(c=>c.disabled=true);
+      }
+    };
+    parent.appendChild(div);
+  });
+}
+
+const MARKET = [
+  {name:"apples", icon:"🍎", price:1.50},
+  {name:"oranges", icon:"🍊", price:1.80},
+  {name:"bread", icon:"🍞", price:1.20},
+  {name:"milk", icon:"🥛", price:1.10},
+  {name:"pizza", icon:"🍕", price:3.90},
+  {name:"shampoo", icon:"🧴", price:4.50},
+  {name:"T-shirt", icon:"👕", price:7.00},
+  {name:"book", icon:"📘", price:6.50}
+];
+
+function buildMarket(){
+  const items = document.getElementById("marketItems");
+  items.innerHTML="";
+  MARKET.forEach((it,idx)=>{
+    const div = document.createElement("div");
+    div.className = "market-item";
+    div.innerHTML = `<div class="market-icon">${it.icon}</div><div class="market-word">${it.name}</div><div>£${it.price.toFixed(2)}</div>`;
+    div.onclick=()=>{
+      if(basket.length >= 3 && !basket.includes(idx)) return;
+      if(basket.includes(idx)){
+        basket = basket.filter(x=>x!==idx);
+        div.classList.remove("selected");
+      }else{
+        basket.push(idx);
+        div.classList.add("selected");
+      }
+      renderBasket();
+    };
+    items.appendChild(div);
+  });
+
+  const parent = document.getElementById("marketActivity");
+  parent.innerHTML = `<p class="activity-title">Checkout questions</p>`;
+  const qs = [
+    {icon:"🧾", prompt:"After you pay, you should ...", answer:"get a receipt", choices:["get a receipt","stand in a queue","shopping trolley","too small"]},
+    {icon:"💳", prompt:"You have no cash. What can you say?", answer:"Can I pay by card?", choices:["Can I pay by card?","Can I get your change?","Can I carry the cashier?","Can I be too enough?"]},
+    {icon:"🏷️", prompt:"The shampoo is usually £6. Today it is £4.50. It is a ...", answer:"special offer", choices:["special offer","shopping list","shopping basket","receipt"]},
+    {icon:"🧍‍♂️🧍‍♀️", prompt:"There are five people before you. You need to ...", answer:"stand in a queue", choices:["stand in a queue","pay in cash","check the receipt","carry the price"]},
+    {icon:"🛍️", prompt:"You leave the shop and take the food home. You ...", answer:"carry the shopping", choices:["carry the shopping","pay by card","get your change","check the price"]}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"mk"+i, ok:"Good shopping English."}));
+}
+
+function renderBasket(){
+  const list = document.getElementById("basketList");
+  const rows = document.getElementById("receiptRows");
+  const total = document.getElementById("totalPrice");
+  list.innerHTML="";
+  rows.innerHTML="";
+  let sum=0;
+  basket.forEach(idx=>{
+    const it = MARKET[idx];
+    sum += it.price;
+    list.innerHTML += `<span class="tag">${it.icon} ${it.name}</span>`;
+    rows.innerHTML += `<div class="receipt-row"><span>${it.name}</span><span>£${it.price.toFixed(2)}</span></div>`;
+  });
+  if(!basket.length) list.innerHTML = `<span class="small">Click three things to put them in your shopping bag.</span>`;
+  total.textContent = `£${sum.toFixed(2)}`;
+}
+
+function clearBasket(){
+  basket = [];
+  document.querySelectorAll(".market-item").forEach(x=>x.classList.remove("selected"));
+  renderBasket();
+}
+
+function buildDialogue(){
+  const parent = document.getElementById("dialogueActivity");
+  parent.innerHTML = `
+    <span class="speech cashier">Cashier: Good afternoon. Can I help you?</span>
+    <span class="speech">You: I need to buy some food.</span>
+  `;
+  const qs = [
+    {icon:"📝", prompt:"Before you go shopping, what helps you remember what to buy?", answer:"a shopping list", choices:["a shopping list","a cashier","your change","a queue"]},
+    {icon:"🔎", prompt:"You are not sure how much the apples cost. What do you do?", answer:"check the price", choices:["check the price","get your change","stand in a queue","pay in cash"]},
+    {icon:"💵", prompt:"Cashier: How would you like to pay? You answer:", answer:"I’ll pay in cash.", choices:["I’ll pay in cash.","I’ll get a receipt.","I’ll stand in a queue.","I’ll check your change."]},
+    {icon:"🧾", prompt:"Cashier: Would you like this paper after payment? You answer:", answer:"Yes, can I get a receipt, please?", choices:["Yes, can I get a receipt, please?","Yes, can I get a cashier, please?","Yes, can I be too big, please?","Yes, can I pay by a queue, please?"]},
+    {icon:"💰", prompt:"The cashier gives you £2 back. You ...", answer:"get your change", choices:["get your change","pay by card","check the shopping list","carry the price"]}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"dia"+i, ok:"Natural shop dialogue."}));
+}
+
+function buildFinal(){
+  const parent = document.getElementById("finalActivity");
+  parent.innerHTML = `<p class="activity-title">Mixed challenge</p>`;
+  const qs = [
+    {icon:"🧺", prompt:"Корзина для покупок", answer:"shopping basket", choices:["shopping basket","shopping bag","shopping trolley","special offer"]},
+    {icon:"🛒", prompt:"Тележка для покупок", answer:"shopping trolley", choices:["shopping trolley","shopping list","cashier","receipt"]},
+    {icon:"💳", prompt:"Платить картой", answer:"pay by card", choices:["pay by card","pay in cash","get your change","check the price"]},
+    {icon:"💵", prompt:"Платить наличными", answer:"pay in cash", choices:["pay in cash","pay by card","stand in a queue","get a receipt"]},
+    {icon:"🛍️", prompt:"нести покупки", answer:"carry the shopping", choices:["carry the shopping","check the price","shopping list","special offer"]},
+    {icon:"👩‍💼", prompt:"This person works at the checkout.", answer:"cashier", choices:["cashier","shopping basket","shopping trolley","shopping bag"]},
+    {icon:"🧴", prompt:"Choose the correct sentence.", answer:"This shampoo is too expensive for me.", choices:["This shampoo is too expensive for me.","This shampoo expensive too for me.","This shampoo is expensive enough too.","This shampoo as expensive as for me."]},
+    {icon:"🍊", prompt:"Choose the correct sentence.", answer:"These oranges are sweet enough for me.", choices:["These oranges are sweet enough for me.","These oranges are enough sweet for me.","These oranges enough are sweet for me.","These oranges are as enough sweet."]},
+    {icon:"📘", prompt:"Choose the correct sentence.", answer:"This book isn’t interesting enough for me.", choices:["This book isn’t interesting enough for me.","This book isn’t enough interesting for me.","This book not as interesting enough.","This book too interesting enough."]},
+    {icon:"🎒", prompt:"Choose the correct sentence.", answer:"My bag is as heavy as your bag.", choices:["My bag is as heavy as your bag.","My bag is so heavy as your bag.","My bag is enough heavy as your bag.","My bag is too heavy as your bag."]}
+  ];
+  qs.forEach((q,i)=>makeChoiceQuestion(parent,{...q,id:"fin"+i, ok:"Correct."}));
+}
+
+function updateScore(){
+  document.getElementById("score").textContent = score;
+  document.getElementById("total").textContent = totalQuestions;
+  const pct = totalQuestions ? Math.round((score/totalQuestions)*100) : 0;
+  document.getElementById("progress").style.width = pct + "%";
+  if(score === totalQuestions && totalQuestions > 0){
+    document.getElementById("completion").classList.add("show");
+    document.getElementById("completionText").textContent = `You scored ${score}/${totalQuestions}.`;
+  }
+}
+
+function burst(){
+  const colors = ["#ffb347","#5bc47a","#00a6b4","#ff7aa2","#8e7dff","#ffd54f"];
+  for(let i=0;i<12;i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDelay = (Math.random()*.25)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1700);
+  }
+}
+
+function resetAll(){
+  location.reload();
+}
+
+function init(){
+  showCards("nouns");
+  buildTranslation();
+  buildPictures();
+  buildDefinitions();
+  buildGrammar();
+  buildWordOrder();
+  buildMarket();
+  renderBasket();
+  buildDialogue();
+  buildFinal();
+  updateScore();
+}
+init();
+</script>
+</body>
+</html>
