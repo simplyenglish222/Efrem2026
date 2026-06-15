@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping for Clothes — Interactive Practice</title>
+  <style>
+    :root{
+      --bg:#fff8ef;
+      --paper:#ffffff;
+      --ink:#2f2a26;
+      --muted:#6f6258;
+      --line:#ead8c4;
+      --accent:#f07b35;
+      --accent2:#ffd166;
+      --soft:#fff0dc;
+      --green:#5f9f74;
+      --shadow:0 12px 28px rgba(91,58,32,.14);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,209,102,.35), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(240,123,53,.16), transparent 32rem),
+        var(--bg);
+      color:var(--ink);
+      line-height:1.55;
+    }
+    .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 54px}
+    header{
+      background:linear-gradient(135deg,#fff,#fff2df);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    header:after{
+      content:"";
+      position:absolute;right:-45px;top:-45px;width:180px;height:180px;
+      background:rgba(240,123,53,.12);border-radius:50%;
+    }
+    .kicker{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--accent);letter-spacing:.04em;text-transform:uppercase;font-size:.84rem}
+    .sound-dot{width:34px;height:34px;border-radius:50%;background:var(--accent);color:white;display:inline-grid;place-items:center;font-size:1.15rem}
+    h1{font-size:clamp(2rem,5vw,4.3rem);line-height:1.02;margin:12px 0 8px;font-weight:900;letter-spacing:-.045em}
+    .subtitle{font-size:1.08rem;color:var(--muted);max-width:760px;margin:0}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;gap:7px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-weight:700;color:#4b4038;font-size:.92rem}
+    nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}
+    nav a{color:var(--ink);text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-weight:750;box-shadow:0 3px 10px rgba(91,58,32,.07)}
+    nav a:hover{border-color:var(--accent);transform:translateY(-1px)}
+    section.card{
+      background:rgba(255,255,255,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-top:18px;
+    }
+    .section-title{display:flex;align-items:flex-start;gap:12px;margin:0 0 14px}
+    .num{min-width:42px;height:42px;border-radius:14px;background:var(--accent);color:white;display:grid;place-items:center;font-weight:900;font-size:1.15rem;box-shadow:0 7px 15px rgba(240,123,53,.25)}
+    h2{font-size:clamp(1.35rem,3.4vw,2.1rem);line-height:1.14;margin:0;font-weight:900;letter-spacing:-.025em}
+    .note{color:var(--muted);margin:.15rem 0 0;font-size:.98rem}
+    .grammar-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+    .grammar-box{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:14px;min-height:110px}
+    .grammar-box b{display:block;margin-bottom:5px;color:#3c3029}
+    .grammar-box small{display:block;color:var(--muted);font-size:.9rem}
+    .phrase-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .role-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:16px}
+    .role-card h3{margin:0 0 12px;font-size:1.15rem;color:#332922}
+    .phrase-list{display:grid;gap:9px}
+    .phrase{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:10px;
+      align-items:start;
+      padding:10px;
+      border:1px solid #f0dfcd;
+      border-radius:15px;
+      background:#fffaf5;
+    }
+    .audio{
+      width:38px;height:38px;border:0;border-radius:12px;background:var(--accent);color:#fff;cursor:pointer;font-weight:900;font-size:1rem;
+      box-shadow:0 5px 12px rgba(240,123,53,.25)
+    }
+    .audio:hover{filter:brightness(.96);transform:translateY(-1px)}
+    .en{font-weight:800;color:#28231f}
+    .ru{color:#6b5b50;font-size:.95rem;margin-top:2px}
+    .exercise-instruction{background:#fff7ea;border:1px dashed #e6c7a7;border-radius:16px;padding:12px 14px;color:#57493f;margin:10px 0 16px;font-weight:650}
+    .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+    .matching-row{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #f0e2d4}
+    .matching-row:last-child{border-bottom:0}
+    select,input[type="text"],textarea{
+      width:100%;border:1.5px solid #dbc3aa;border-radius:13px;background:#fff;padding:10px 12px;font:inherit;color:var(--ink);outline:none;transition:.15s ease;
+    }
+    select:focus,input[type="text"]:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(240,123,53,.13)}
+    .option-bank{background:#fff8ef;border:1px solid #ecd8c1;border-radius:18px;padding:14px}
+    .option-bank h4{margin:0 0 8px;font-size:1rem}
+    .option-bank ol{margin:0;padding-left:22px}
+    .option-bank li{margin:7px 0}
+    .dialogue-card{border:1px solid var(--line);border-radius:20px;background:#fff;padding:16px;margin:12px 0}
+    .line{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;margin:8px 0;align-items:start}
+    .speaker{font-weight:900;color:#45372f}
+    .radio-options{display:grid;gap:8px;margin-top:8px}
+    label.choice{
+      display:flex;align-items:flex-start;gap:9px;border:1px solid #ecd8c1;background:#fffaf5;border-radius:14px;padding:10px 12px;cursor:pointer;
+    }
+    label.choice:hover{border-color:#f0a06d}
+    .choice input{margin-top:4px;accent-color:var(--accent)}
+    .gap{display:inline-block;min-width:145px;max-width:220px;margin:0 5px;vertical-align:middle}
+    .gap.short{min-width:95px;max-width:140px}
+    .dialogue-image-grid{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center;margin-top:12px}
+    .picture{
+      background:linear-gradient(135deg,#fff,#fff2df);
+      border:1px solid var(--line);
+      border-radius:22px;
+      min-height:190px;
+      display:grid;place-items:center;
+      padding:10px;
+      overflow:hidden;
+    }
+    .picture svg{width:100%;height:auto;max-height:240px}
+    .mini-caption{text-align:center;color:var(--muted);font-weight:700;font-size:.9rem;margin-top:8px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .status{
+      position:fixed;right:14px;bottom:14px;background:#2f2a26;color:#fff;border-radius:999px;padding:8px 12px;font-size:.86rem;box-shadow:0 8px 22px rgba(0,0,0,.2);opacity:.92;z-index:20
+    }
+    .toolbar{display:flex;justify-content:flex-end;margin-top:12px}
+    .clear-btn{border:1px solid var(--line);background:#fff;color:#594a40;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}
+    .clear-btn:hover{border-color:var(--accent)}
+    .footer-note{margin:18px 0 0;color:var(--muted);font-size:.92rem;text-align:center}
+    @media (max-width:860px){
+      .phrase-layout,.match-grid,.dialogue-image-grid,.two-col,.grammar-grid{grid-template-columns:1fr}
+      .picture{min-height:160px}
+      .line{grid-template-columns:78px minmax(0,1fr)}
+      .wrap{padding:14px 10px 52px}
+      section.card,header{padding:16px;border-radius:20px}
+      .gap{display:block;margin:6px 0;max-width:none;min-width:0}
+      .matching-row{grid-template-columns:1fr;gap:6px;background:#fffaf5;border:1px solid #f0e2d4;border-radius:14px;padding:11px;margin-bottom:8px}
+    }
+    @media print{
+      body{background:#fff}.status,.toolbar,nav,.audio{display:none!important}.card,header{box-shadow:none!important;break-inside:avoid}.wrap{max-width:none}.phrase-layout,.two-col{grid-template-columns:1fr 1fr}.dialogue-image-grid{grid-template-columns:190px 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="kicker"><span class="sound-dot">🔊</span> Unit 4</div>
+      <h1>Shopping for clothes</h1>
+      <p class="subtitle">Interactive practice: shop assistant and customer phrases, size questions, <b>this / these</b>, <b>it / them</b>, and short clothes-shop dialogues.</p>
+      <div class="topbar">
+        <span class="pill">🇷🇺 Russian translations included</span>
+        <span class="pill">🔊 Audio for key phrases</span>
+        <span class="pill">📱 Mobile friendly</span>
+        <span class="pill">✍️ Manual teacher review</span>
+      </div>
+    </header>
+
+    <nav aria-label="Page navigation">
+      <a href="#phrases">Phrase bank</a>
+      <a href="#ex1">Exercise 1</a>
+      <a href="#ex2">Exercise 2</a>
+      <a href="#ex3">Exercise 3</a>
+      <a href="#ex4">Exercise 4</a>
+    </nav>
+
+    <section class="card" id="phrases">
+      <div class="section-title">
+        <div class="num">A</div>
+        <div>
+          <h2>Shopping for clothes: useful phrases</h2>
+          <p class="note">Press the speaker button to hear the English phrase. The Russian translation is shown under each phrase.</p>
+        </div>
+      </div>
+
+      <div class="grammar-grid">
+        <div class="grammar-box"><b>this</b>one thing near you<br><small>this top, this hoodie<br>эта вещь / этот предмет</small></div>
+        <div class="grammar-box"><b>these</b>two or more things near you<br><small>these jeans, these shoes<br>эти вещи</small></div>
+        <div class="grammar-box"><b>it / them</b>after the noun<br><small>try it on = one item<br>try them on = plural items</small></div>
+        <div class="grammar-box"><b>in + colour / size</b>specific colour or size<br><small>in grey, in black<br>in a small, in a size 10</small></div>
+      </div>
+
+      <div class="phrase-layout">
+        <div class="role-card">
+          <h3>Shop assistant</h3>
+          <div class="phrase-list">
+            <div class="phrase"><button class="audio" data-say="Can I help you?">▶</button><div><div class="en">Can I help you?</div><div class="ru">Могу я вам помочь?</div></div></div>
+            <div class="phrase"><button class="audio" data-say="What size are you?">▶</button><div><div class="en">What size are you?</div><div class="ru">Какой у вас размер?</div></div></div>
+            <div class="phrase"><button class="audio" data-say="Yes, we do. Here you are.">▶</button><div><div class="en">Yes, we do. Here you are.</div><div class="ru">Да, есть. Вот, пожалуйста.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="Sorry, we don't.">▶</button><div><div class="en">Sorry, we don't.</div><div class="ru">Извините, у нас нет.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="The changing rooms are over there.">▶</button><div><div class="en">The changing rooms are over there.</div><div class="ru">Примерочные находятся вон там.</div></div></div>
+          </div>
+        </div>
+
+        <div class="role-card">
+          <h3>Customer</h3>
+          <div class="phrase-list">
+            <div class="phrase"><button class="audio" data-say="I'm looking for new jeans.">▶</button><div><div class="en">I'm looking for new jeans.</div><div class="ru">Я ищу новые джинсы.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="No, thanks. I'm just looking.">▶</button><div><div class="en">No, thanks. I'm just looking.</div><div class="ru">Нет, спасибо. Я просто смотрю.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="I'm a size ten.">▶</button><div><div class="en">I'm a size 10.</div><div class="ru">У меня 10-й размер.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="I'm a small, a medium, or a large.">▶</button><div><div class="en">I'm a small / a medium / a large.</div><div class="ru">У меня размер S / M / L.</div></div></div>
+            <div class="phrase"><button class="audio" data-say="Do you have this in grey? Do you have these in grey?">▶</button><div><div class="en">Do you have this / these in grey?</div><div class="ru">У вас есть эта вещь / эти вещи в сером цвете?</div></div></div>
+            <div class="phrase"><button class="audio" data-say="Do you have this in a size ten? Do you have these in a small?">▶</button><div><div class="en">Do you have this / these in a size 10 / a small?</div><div class="ru">У вас есть эта вещь / эти вещи в размере 10 / S?</div></div></div>
+            <div class="phrase"><button class="audio" data-say="Can I try it on? Can I try them on?">▶</button><div><div class="en">Can I try it / them on?</div><div class="ru">Можно я примерю это / их?</div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="ex1">
+      <div class="section-title">
+        <div class="num">1</div>
+        <div>
+          <h2>Match 1–6 to a–f</h2>
+          <p class="note">Choose the letter that completes each phrase.</p>
+        </div>
+      </div>
+      <div class="exercise-instruction">Task type: matching. Use the drop-down list. There is no automatic marking.</div>
+      <div class="match-grid">
+        <div>
+          <div class="matching-row"><div><b>1.</b> Can I</div><select name="ex1_1"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+          <div class="matching-row"><div><b>2.</b> No, thanks. I’m</div><select name="ex1_2"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+          <div class="matching-row"><div><b>3.</b> Do you</div><select name="ex1_3"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+          <div class="matching-row"><div><b>4.</b> Sorry,</div><select name="ex1_4"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+          <div class="matching-row"><div><b>5.</b> Can I try</div><select name="ex1_5"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+          <div class="matching-row"><div><b>6.</b> Yes, of course. The changing rooms</div><select name="ex1_6"><option value="">choose</option><option>a</option><option>b</option><option>c</option><option>d</option><option>e</option><option>f</option></select></div>
+        </div>
+        <div class="option-bank">
+          <h4>Options</h4>
+          <ol type="a">
+            <li>are over there.</li>
+            <li>it on?</li>
+            <li>we don’t.</li>
+            <li>have this in a small?</li>
+            <li>just looking.</li>
+            <li>help you?</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="ex2">
+      <div class="section-title">
+        <div class="num">2</div>
+        <div>
+          <h2>Complete the dialogues</h2>
+          <p class="note">Circle the correct answer by selecting one option.</p>
+        </div>
+      </div>
+      <div class="exercise-instruction">Task type: multiple choice. Select one answer in each dialogue.</div>
+      <div class="two-col">
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">A:</div><div>Good morning. Can I help you?</div></div>
+          <div class="line"><div class="speaker">B:</div><div>_____</div></div>
+          <div class="radio-options">
+            <label class="choice"><input type="radio" name="ex2_1" value="a"><span><b>a</b> Thanks, but I don’t want it.</span></label>
+            <label class="choice"><input type="radio" name="ex2_1" value="b"><span><b>b</b> Yes, we can.</span></label>
+            <label class="choice"><input type="radio" name="ex2_1" value="c"><span><b>c</b> No, thanks. I’m just looking.</span></label>
+          </div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">A:</div><div>Excuse me, this top is too small.</div></div>
+          <div class="line"><div class="speaker">B:</div><div>_____</div></div>
+          <div class="radio-options">
+            <label class="choice"><input type="radio" name="ex2_2" value="a"><span><b>a</b> They’re a size 10.</span></label>
+            <label class="choice"><input type="radio" name="ex2_2" value="b"><span><b>b</b> What size are you?</span></label>
+            <label class="choice"><input type="radio" name="ex2_2" value="c"><span><b>c</b> No, they’re big.</span></label>
+          </div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">A:</div><div>Do you have this top in a different colour?</div></div>
+          <div class="line"><div class="speaker">B:</div><div>_____</div></div>
+          <div class="radio-options">
+            <label class="choice"><input type="radio" name="ex2_3" value="a"><span><b>a</b> What colour are you looking for?</span></label>
+            <label class="choice"><input type="radio" name="ex2_3" value="b"><span><b>b</b> It’s a size 10.</span></label>
+            <label class="choice"><input type="radio" name="ex2_3" value="c"><span><b>c</b> Would you like a smaller top?</span></label>
+          </div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">A:</div><div>What size is that coat?</div></div>
+          <div class="line"><div class="speaker">B:</div><div>_____</div></div>
+          <div class="radio-options">
+            <label class="choice"><input type="radio" name="ex2_4" value="a"><span><b>a</b> It’s expensive.</span></label>
+            <label class="choice"><input type="radio" name="ex2_4" value="b"><span><b>b</b> I think it’s purple.</span></label>
+            <label class="choice"><input type="radio" name="ex2_4" value="c"><span><b>c</b> Medium.</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="ex3">
+      <div class="section-title">
+        <div class="num">3</div>
+        <div>
+          <h2>Complete the dialogue</h2>
+          <p class="note">Write one word in each gap.</p>
+        </div>
+      </div>
+      <div class="exercise-instruction">Task type: gap-fill. Type one missing word in each box.</div>
+      <div class="dialogue-image-grid">
+        <div>
+          <div class="picture" aria-label="A shop assistant and a boy in a clothes shop">
+            <svg viewBox="0 0 520 330" role="img" aria-label="Shop assistant and boy in clothes shop">
+              <defs>
+                <linearGradient id="wall" x1="0" x2="1"><stop offset="0" stop-color="#ffe9cf"/><stop offset="1" stop-color="#fff8ef"/></linearGradient>
+              </defs>
+              <rect x="0" y="0" width="520" height="330" rx="25" fill="url(#wall)"/>
+              <rect x="35" y="70" width="450" height="58" rx="10" fill="#b95b45" opacity=".9"/>
+              <rect x="35" y="142" width="450" height="24" rx="8" fill="#d99166"/>
+              <rect x="75" y="86" width="52" height="36" rx="5" fill="#f05d4f"/>
+              <rect x="146" y="85" width="50" height="37" rx="5" fill="#fbba45"/>
+              <rect x="216" y="86" width="52" height="36" rx="5" fill="#5fb0a9"/>
+              <rect x="320" y="90" width="120" height="10" rx="5" fill="#fff2df"/>
+              <rect x="320" y="112" width="95" height="10" rx="5" fill="#fff2df"/>
+              <ellipse cx="208" cy="282" rx="65" ry="12" fill="#d6b59a" opacity=".45"/>
+              <ellipse cx="372" cy="282" rx="54" ry="11" fill="#d6b59a" opacity=".45"/>
+              <circle cx="206" cy="84" r="31" fill="#ffd0aa"/>
+              <path d="M170 78c10-36 51-45 73-22-5 3-8 10-6 18-15-14-32 4-54 8-8 2-11 1-13-4z" fill="#e65b3d"/>
+              <path d="M182 70c-20-14-10-38 13-27 13 6 16 19 6 31z" fill="#ef7a46"/>
+              <circle cx="195" cy="84" r="3" fill="#35251d"/><circle cx="217" cy="84" r="3" fill="#35251d"/>
+              <path d="M198 100q11 8 24 0" stroke="#7d4b3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M167 132h82l20 128h-120z" fill="#66a9d7"/>
+              <path d="M168 132c15 18 62 18 80 0l-12-28h-56z" fill="#f3f0e9"/>
+              <path d="M159 143c-22 25-28 54-11 60 17 6 34-19 39-42" fill="none" stroke="#ffd0aa" stroke-width="15" stroke-linecap="round"/>
+              <path d="M248 142c22 18 43 23 54 8" fill="none" stroke="#ffd0aa" stroke-width="15" stroke-linecap="round"/>
+              <rect x="249" y="112" width="54" height="66" rx="9" fill="#252525"/>
+              <path d="M258 119q18 14 37 0" stroke="#fff" stroke-width="3" fill="none" opacity=".45"/>
+              <circle cx="374" cy="112" r="27" fill="#ffd4ab"/>
+              <path d="M348 111c2-32 42-38 57-15-15-3-28 11-45 9z" fill="#f5c13d"/>
+              <circle cx="365" cy="113" r="3" fill="#30231c"/><circle cx="386" cy="113" r="3" fill="#30231c"/>
+              <path d="M366 127q13 9 27 0" stroke="#7d4b3a" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M344 148h58l13 88h-86z" fill="#ffcf4c"/>
+              <path d="M333 164c-17 35-15 58 2 64 14 5 24-11 28-39" fill="none" stroke="#ffd4ab" stroke-width="13" stroke-linecap="round"/>
+              <path d="M405 164c23 27 33 55 20 65-12 9-28-9-36-35" fill="none" stroke="#ffd4ab" stroke-width="13" stroke-linecap="round"/>
+              <path d="M350 236l-9 42M397 236l12 42" stroke="#6b4b36" stroke-width="14" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="mini-caption">In a clothes shop</div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">Assistant:</div><div>Can I help you?</div></div>
+          <div class="line"><div class="speaker">Ted:</div><div>Yes, <input class="gap short" type="text" name="ex3_1" placeholder="1">. I’m looking for a T-shirt.</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>What <input class="gap short" type="text" name="ex3_2" placeholder="2"> are you?</div></div>
+          <div class="line"><div class="speaker">Ted:</div><div>I’m a small, I think. Do you <input class="gap short" type="text" name="ex3_3" placeholder="3"> this T-shirt in black?</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>Yes, we <input class="gap short" type="text" name="ex3_4" placeholder="4">.</div></div>
+          <div class="line"><div class="speaker">Ted:</div><div>Cool. Can I <input class="gap short" type="text" name="ex3_5" placeholder="5"> it on?</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>Yes, of course. The changing <input class="gap short" type="text" name="ex3_6" placeholder="6"> are over there.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="ex4">
+      <div class="section-title">
+        <div class="num">4</div>
+        <div>
+          <h2>Look at the pictures and complete the dialogues</h2>
+          <p class="note">Use two words in each gap.</p>
+        </div>
+      </div>
+      <div class="exercise-instruction">Task type: dialogue completion. Type the missing two-word phrases.</div>
+
+      <div class="dialogue-image-grid">
+        <div>
+          <div class="picture" aria-label="Orange trainers">
+            <svg viewBox="0 0 520 300" role="img" aria-label="Orange trainers">
+              <rect x="0" y="0" width="520" height="300" rx="26" fill="#fff5e8"/>
+              <ellipse cx="255" cy="252" rx="180" ry="22" fill="#d7b99d" opacity=".38"/>
+              <g transform="translate(78 73) rotate(-3)">
+                <path d="M30 122c54 8 97 0 134-24 23-16 47-16 72-4 36 17 80 28 135 32 21 1 38 17 44 38 2 7-3 15-11 16l-330 6c-42 1-66-16-73-43-4-15 12-24 29-21z" fill="#f0642f"/>
+                <path d="M57 160c88 15 205 12 337 4 9-1 17 8 15 17l-2 13c-1 8-8 14-16 14H72c-22 0-48-14-55-36-3-11 14-16 40-12z" fill="#ffffff"/>
+                <path d="M113 204h266" stroke="#343434" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+                <path d="M155 105l52 59M196 97l46 58M237 97l38 52" stroke="#fff4d7" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="150" cy="121" r="7" fill="#8d3325"/><circle cx="187" cy="115" r="7" fill="#8d3325"/><circle cx="224" cy="113" r="7" fill="#8d3325"/>
+                <path d="M65 130c28-13 42-29 46-54 26 17 48 25 76 21-35 31-70 45-122 33z" fill="#ff8a3d"/>
+                <path d="M285 116c37 14 70 20 114 23" stroke="#be3d25" stroke-width="15" stroke-linecap="round" opacity=".65"/>
+              </g>
+              <g transform="translate(134 29) rotate(6) scale(.82)" opacity=".98">
+                <path d="M30 122c54 8 97 0 134-24 23-16 47-16 72-4 36 17 80 28 135 32 21 1 38 17 44 38 2 7-3 15-11 16l-330 6c-42 1-66-16-73-43-4-15 12-24 29-21z" fill="#ff7a30"/>
+                <path d="M57 160c88 15 205 12 337 4 9-1 17 8 15 17l-2 13c-1 8-8 14-16 14H72c-22 0-48-14-55-36-3-11 14-16 40-12z" fill="#fff"/>
+                <path d="M113 204h266" stroke="#343434" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+                <path d="M155 105l52 59M196 97l46 58M237 97l38 52" stroke="#fff4d7" stroke-width="8" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
+          <div class="mini-caption">Orange trainers</div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">Assistant:</div><div>Can I help you?</div></div>
+          <div class="line"><div class="speaker">Peter:</div><div>Yes, please. I’m looking <input class="gap" type="text" name="ex4_1" placeholder="1"></div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div><input class="gap" type="text" name="ex4_2" placeholder="2"> are you?</div></div>
+          <div class="line"><div class="speaker">Peter:</div><div>Thirty-nine. Do <input class="gap" type="text" name="ex4_3" placeholder="3"> them in green?</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>Sorry, we <input class="gap" type="text" name="ex4_4" placeholder="4">.</div></div>
+        </div>
+      </div>
+
+      <div class="dialogue-image-grid">
+        <div>
+          <div class="picture" aria-label="Grey hoodie">
+            <svg viewBox="0 0 520 300" role="img" aria-label="Grey hoodie">
+              <rect x="0" y="0" width="520" height="300" rx="26" fill="#f8f6f2"/>
+              <ellipse cx="265" cy="260" rx="138" ry="20" fill="#c8b8a7" opacity=".35"/>
+              <path d="M203 66c15-35 99-35 114 0l21 38-24 30-15-27c-27 18-70 18-98 0l-15 27-24-30z" fill="#d8d8d8"/>
+              <path d="M201 108c32 25 84 25 116 0l29 123c3 14-7 28-21 28H194c-14 0-24-14-21-28z" fill="#e7e7e7"/>
+              <path d="M197 68c18 32 106 32 124 0-7-15-28-26-62-26s-55 11-62 26z" fill="#bfc1c2"/>
+              <path d="M216 69c14 17 71 17 86 0-7-9-21-15-43-15s-36 6-43 15z" fill="#f7f7f7"/>
+              <path d="M184 118c-38 21-66 70-78 121-2 10 5 20 16 21l38 3c10 1 19-6 21-16l22-102z" fill="#dcdcdc"/>
+              <path d="M337 118c39 21 67 70 79 121 2 10-5 20-16 21l-38 3c-10 1-19-6-21-16l-22-102z" fill="#dcdcdc"/>
+              <path d="M224 154h72c11 0 20 9 20 20v32c0 15-12 27-27 27h-58c-15 0-27-12-27-27v-32c0-11 9-20 20-20z" fill="#d1d1d1"/>
+              <path d="M260 116v137" stroke="#c2c2c2" stroke-width="5" stroke-linecap="round"/>
+              <path d="M240 83c-18 25-19 49-10 73M282 83c18 25 19 49 10 73" stroke="#9ea0a1" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="232" cy="159" r="4" fill="#8f9192"/><circle cx="289" cy="159" r="4" fill="#8f9192"/>
+              <path d="M184 249h154" stroke="#c3c3c3" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="mini-caption">Grey hoodie</div>
+        </div>
+        <div class="dialogue-card">
+          <div class="line"><div class="speaker">Tracy:</div><div>Excuse me. Do you <input class="gap" type="text" name="ex4_5" placeholder="1"> hoodie in a small?</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>Yes, <input class="gap" type="text" name="ex4_6" placeholder="2">.</div></div>
+          <div class="line"><div class="speaker">Tracy:</div><div>Great. Can I <input class="gap" type="text" name="ex4_7" placeholder="3"> on?</div></div>
+          <div class="line"><div class="speaker">Assistant:</div><div>Yes, <input class="gap" type="text" name="ex4_8" placeholder="4">. The <input class="gap" type="text" name="ex4_9" placeholder="5"> are <input class="gap" type="text" name="ex4_10" placeholder="6">.</div></div>
+          <div class="line"><div class="speaker">Tracy:</div><div>Thank you.</div></div>
+        </div>
+      </div>
+      <div class="toolbar"><button class="clear-btn" type="button" id="clearAll">Clear all answers</button></div>
+    </section>
+
+    <p class="footer-note">The page saves typed answers automatically in this browser, so a student can return to the same device later.</p>
+  </div>
+  <div class="status" id="saveStatus">Ready</div>
+
+  <script>
+    const STORAGE_KEY = 'shopping-for-clothes-practice-v1';
+    const status = document.getElementById('saveStatus');
+
+    function setStatus(text){
+      status.textContent = text;
+      clearTimeout(window.__statusTimer);
+      window.__statusTimer = setTimeout(()=> status.textContent = 'Saved automatically', 1200);
+    }
+
+    function speak(text){
+      if(!('speechSynthesis' in window)){
+        setStatus('Audio is not supported');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = 0.88;
+      u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }
+
+    document.querySelectorAll('.audio').forEach(btn=>{
+      btn.addEventListener('click',()=> speak(btn.dataset.say));
+    });
+
+    function collect(){
+      const data = {};
+      document.querySelectorAll('input[type="text"], select').forEach(el=>{
+        if(el.name) data[el.name] = el.value;
+      });
+      document.querySelectorAll('input[type="radio"]').forEach(el=>{
+        if(el.checked) data[el.name] = el.value;
+      });
+      return data;
+    }
+
+    function save(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collect()));
+      setStatus('Saved');
+    }
+
+    function restore(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return;
+        const data = JSON.parse(raw);
+        Object.entries(data).forEach(([name,value])=>{
+          const radios = document.querySelectorAll(`input[type="radio"][name="${CSS.escape(name)}"]`);
+          if(radios.length){
+            radios.forEach(r=> r.checked = r.value === value);
+            return;
+          }
+          const el = document.querySelector(`[name="${CSS.escape(name)}"]`);
+          if(el) el.value = value;
+        });
+        status.textContent = 'Saved answers restored';
+      }catch(e){
+        status.textContent = 'Ready';
+      }
+    }
+
+    document.addEventListener('input', e=>{
+      if(e.target.matches('input, select, textarea')) save();
+    });
+    document.addEventListener('change', e=>{
+      if(e.target.matches('input, select, textarea')) save();
+    });
+
+    document.getElementById('clearAll').addEventListener('click',()=>{
+      document.querySelectorAll('input[type="text"]').forEach(el=> el.value='');
+      document.querySelectorAll('select').forEach(el=> el.selectedIndex=0);
+      document.querySelectorAll('input[type="radio"]').forEach(el=> el.checked=false);
+      localStorage.removeItem(STORAGE_KEY);
+      setStatus('Cleared');
+    });
+
+    restore();
+  </script>
+</body>
+</html>
